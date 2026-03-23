@@ -8,6 +8,14 @@
   <link rel="stylesheet" href="../shared.css"/>
   <link rel="stylesheet" href="style.css"/>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
@@ -19,17 +27,19 @@
 
   <header class="page-header">
     <div class="page-badge" style="--accent: var(--duo-purple)">Tarea 03 · Modelado Estadístico</div>
-    <h1 class="page-title">🎲 Distribuciones de Probabilidad</h1>
+    <h1 class="page-title">Distribuciones de Probabilidad</h1>
     <p class="page-subtitle">Exploración interactiva de variables aleatorias discretas y continuas aplicadas a la computación.</p>
   </header>
 
   <section class="section-card anim-card" style="--d:0">
     <div class="dist-tabs-wrap">
+      <button class="dist-tab" data-dist="normal" style="--c: #ff4477">Normal</button>
       <button class="dist-tab active" data-dist="binom" style="--c: #1cb0f6">Binomial</button>
       <button class="dist-tab" data-dist="nbinom" style="--c: #ff4b4b">Binomial Neg.</button>
       <button class="dist-tab" data-dist="geom" style="--c: #58cc02">Geométrica</button>
       <button class="dist-tab" data-dist="poisson" style="--c: #ce82ff">Poisson</button>
       <button class="dist-tab" data-dist="exp" style="--c: #f6c90e">Exponencial</button>
+      
     </div>
 
     <div class="dist-panel" id="panel-binom">
@@ -40,13 +50,10 @@
           <p class="dist-desc">Modela el número de éxitos en $n$ ensayos independientes de Bernoulli, cada uno con probabilidad de éxito $p$.</p>
         </div>
       </div>
-      
       <div class="formula-box">$$P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}$$</div>
-      
       <div class="highlight-box" style="border-color: #1cb0f6; background: rgba(28,176,246,0.07);">
         <strong>Ejemplo en Computer Vision:</strong> Supongamos que tienes un clasificador SVM evaluando fotogramas. Si evalúas $n$ imágenes y el modelo tiene una precisión $p$ de detectar el objeto correctamente en cada una, la distribución muestra la probabilidad de obtener exactamente $k$ detecciones correctas.
       </div>
-
       <div class="controls-grid">
         <div class="control-group">
           <label>Ensayos ($n$): <span id="val-binom-n">20</span></label>
@@ -68,13 +75,10 @@
           <p class="dist-desc">Modela el número de ensayos necesarios para obtener exactamente $r$ éxitos.</p>
         </div>
       </div>
-      
       <div class="formula-box">$$P(X = k) = \binom{k-1}{r-1} p^r (1-p)^{k-r}$$</div>
-      
       <div class="highlight-box" style="border-color: #ff4b4b; background: rgba(255,75,75,0.07);">
         <strong>Ejemplo en Autómatas:</strong> Imagina que envías cadenas aleatorias a un Autómata Finito Determinista (AFD). Si la probabilidad de que el autómata acepte una cadena es $p$, esta distribución te dice la probabilidad de que necesites procesar exactamente $k$ cadenas para conseguir que el AFD acepte $r$ de ellas.
       </div>
-
       <div class="controls-grid">
         <div class="control-group">
           <label>Éxitos requeridos ($r$): <span id="val-nbinom-r">3</span></label>
@@ -96,13 +100,10 @@
           <p class="dist-desc">Es un caso especial de la binomial negativa ($r=1$). Modela el número de ensayos necesarios para obtener el <em>primer</em> éxito.</p>
         </div>
       </div>
-      
       <div class="formula-box">$$P(X = k) = (1-p)^{k-1} p$$</div>
-      
       <div class="highlight-box" style="border-color: #58cc02; background: rgba(88,204,2,0.07);">
         <strong>Ejemplo de Optimización:</strong> Estás ejecutando un algoritmo de colonia de abejas artificiales para comprimir una imagen. Si en cada iteración la probabilidad de encontrar una solución óptima que reduzca el peso del archivo es $p$, la distribución modela la probabilidad de encontrar esa partición ideal exactamente en la iteración $k$.
       </div>
-
       <div class="controls-grid">
         <div class="control-group">
           <label>Probabilidad de éxito ($p$): <span id="val-geom-p">0.2</span></label>
@@ -120,13 +121,10 @@
           <p class="dist-desc">Modela el número de eventos que ocurren en un intervalo de tiempo o espacio fijo, con una tasa media conocida $\lambda$.</p>
         </div>
       </div>
-      
       <div class="formula-box">$$P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}$$</div>
-      
       <div class="highlight-box" style="border-color: #ce82ff; background: rgba(206,130,255,0.07);">
         <strong>Ejemplo en Cloud Computing:</strong> Tienes una máquina virtual instanciada en Azure. Si el servidor recibe en promedio $\lambda$ peticiones HTTP por segundo, la distribución de Poisson te indica la probabilidad de que lleguen exactamente $k$ peticiones en el siguiente segundo, ideal para dimensionar recursos.
       </div>
-
       <div class="controls-grid">
         <div class="control-group">
           <label>Tasa media ($\lambda$): <span id="val-poisson-lam">4</span></label>
@@ -144,13 +142,10 @@
           <p class="dist-desc">Distribución <em>continua</em> que modela el tiempo transcurrido entre dos eventos sucesivos en un proceso de Poisson.</p>
         </div>
       </div>
-      
       <div class="formula-box">$$f(x) = \lambda e^{-\lambda x} \quad \text{para } x \ge 0$$</div>
-      
       <div class="highlight-box" style="border-color: #f6c90e; background: rgba(246,201,14,0.07);">
         <strong>Ejemplo Continuo:</strong> Relacionado al ejemplo anterior de Azure, si las peticiones llegan a una tasa $\lambda$, la distribución exponencial te permite calcular la probabilidad de que el tiempo de espera continuo $x$ (en milisegundos) hasta la siguiente petición sea menor o mayor a cierto límite.
       </div>
-
       <div class="controls-grid">
         <div class="control-group">
           <label>Tasa de eventos ($\lambda$): <span id="val-exp-lam">1.5</span></label>
@@ -158,6 +153,31 @@
         </div>
       </div>
       <div class="chart-container"><canvas id="chart-exp"></canvas></div>
+    </div>
+
+    <div class="dist-panel hidden" id="panel-normal">
+      <div class="dist-header">
+        <div class="dist-icon">📈</div>
+        <div>
+          <h2 class="dist-title" style="color: #ff4477">Distribución Normal</h2>
+          <p class="dist-desc">Distribución <em>continua</em> en forma de campana que describe fenómenos donde múltiples factores independientes se suman. Es la base del Teorema del Límite Central.</p>
+        </div>
+      </div>
+      <div class="formula-box">$$f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}\left(\frac{x-\mu}{\sigma}\right)^2}$$</div>
+      <div class="highlight-box" style="border-color: #ff4477; background: rgba(255,68,119,0.07);">
+        <strong>Ejemplo en Machine Learning:</strong> La inicialización de pesos en una red neuronal profunda a menudo se realiza extrayendo valores de una distribución normal con media $\mu = 0$ y una desviación $\sigma$ ajustada (como en la inicialización de He o Glorot) para evitar que los gradientes exploten o se desvanezcan durante el entrenamiento.
+      </div>
+      <div class="controls-grid">
+        <div class="control-group">
+          <label>Media ($\mu$): <span id="val-normal-mu">0</span></label>
+          <input type="range" id="normal-mu" min="-10" max="10" value="0" step="1">
+        </div>
+        <div class="control-group">
+          <label>Desv. Estándar ($\sigma$): <span id="val-normal-sigma">2</span></label>
+          <input type="range" id="normal-sigma" min="0.5" max="5" value="2" step="0.5">
+        </div>
+      </div>
+      <div class="chart-container"><canvas id="chart-normal"></canvas></div>
     </div>
 
   </section>

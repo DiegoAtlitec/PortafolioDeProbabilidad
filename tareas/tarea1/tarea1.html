@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tarea 1 — Flor de Calabaza</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared.css"/>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+
+<body>
+  <div class="bg-wrap">
+    <div class="bg-orb orb1"></div>
+    <div class="bg-orb orb2"></div>
+    <div class="bg-orb orb3"></div>
+  </div>
+<div class="page-container">
+
+  <a href="../../index.html" class="back-link">← Volver al portafolio</a>
+
+  <!-- HEADER -->
+  <header class="page-header">
+    <div class="page-badge" style="--accent:#f6c90e">Tarea 01 · Histogramas &amp; Boxplots</div>
+    <h1 class="page-title">🌸 Flor de Calabaza</h1>
+    <p class="page-subtitle">Diagramas de Caja y Bigotes e Histogramas aplicados al cultivo de <em>Cucurbita pepo</em></p>
+  </header>
+
+  <!-- ══ S1: PLANTEAMIENTO ══════════════════════════ -->
+  <section class="section-card anim-card" style="--d:0">
+    <h2 class="section-title">📋 Planteamiento del Problema</h2>
+
+    <p class="body-text">
+      En México, la calabaza (<code>Cucurbita spp.</code>) constituye un cultivo de gran relevancia económica y cultural.
+      La producción nacional supera las <strong>550,000 toneladas anuales</strong>, posicionando al país entre los principales productores mundiales.
+      La especie más cultivada con fines comerciales es <code>Cucurbita pepo</code>, una planta <strong>monoica</strong>: produce flores masculinas y femeninas en la misma planta, en estructuras separadas.
+    </p>
+    <p class="body-text" style="margin-top:12px">
+      La dinámica de floración no es constante. Las <strong>giberelinas</strong> favorecen flores masculinas, 
+      mientras que el <strong>etileno</strong> favorece las femeninas. Variables como fotoperiodo, temperatura nocturna y disponibilidad hídrica regulan este equilibrio.
+    </p>
+
+    <div class="highlight-box">
+      Esta variabilidad natural convierte al cultivo en un escenario ideal para estudiar fenómenos biológicos 
+      mediante <strong>histogramas</strong> y <strong>diagramas de caja y bigotes</strong>.
+    </div>
+
+    <div class="table-scroll" style="margin-top:20px">
+      <table>
+        <thead>
+          <tr><th>Fase</th><th>Días</th><th>Flores/planta/día</th><th>% Femeninas</th><th>Variabilidad</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="phase-badge ph1">Inicio de floración</span></td>
+            <td>1 – 7</td><td>4 – 8</td><td>5 – 15 %</td><td>Baja</td>
+          </tr>
+          <tr>
+            <td><span class="phase-badge ph2">Transición reproductiva</span></td>
+            <td>8 – 14</td><td>6 – 10</td><td>15 – 30 %</td><td>Media</td>
+          </tr>
+          <tr>
+            <td><span class="phase-badge ph3">Consolidación reproductiva</span></td>
+            <td>15 – 21</td><td>8 – 12</td><td>30 – 45 %</td><td>Mayor dispersión</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ══ S2: SIMULADOR ═════════════════════════════ -->
+  <section class="section-card anim-card" style="--d:1">
+    <h2 class="section-title">🌱 Simulador de Floración</h2>
+    <p class="body-text">Simula la producción de flores de <strong>20 plantas</strong> por fase, con valores aleatorios dentro de los rangos biológicamente plausibles. Cada clic genera un nuevo conjunto de datos.</p>
+
+    <div class="sim-controls">
+      <button class="sim-btn" id="btnSimular">
+        <span>🎲</span> Simular producción
+      </button>
+      <div class="sim-chips" id="simChips" style="display:none">
+        <span class="chip">20 plantas</span>
+        <span class="chip">3 fases</span>
+        <span class="chip" id="chipTotal">— flores</span>
+      </div>
+    </div>
+
+    <div id="tablasWrap" style="display:none; margin-top:20px">
+      <!-- Tabs -->
+      <div class="fase-tabs">
+        <button class="fase-tab active" data-fase="1">🌿 Fase 1</button>
+        <button class="fase-tab" data-fase="2">🌼 Fase 2</button>
+        <button class="fase-tab" data-fase="3">🌸 Fase 3</button>
+      </div>
+
+      <!-- Panel 1 -->
+      <div class="fase-panel" id="panel-1">
+        <div class="panel-hdr">
+          <span class="phase-badge ph1">Inicio de floración · días 1–7</span>
+          <span class="panel-stat" id="pstat1"></span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Planta</th><th>Total flores</th><th>♀ Femeninas</th><th>♂ Masculinas</th><th>% ♀</th></tr></thead>
+            <tbody id="tbody1"></tbody>
+          </table>
+        </div>
+        <div class="sorted-wrap"><span class="sorted-label">Datos ordenados:</span><span class="sorted-text" id="sorted1"></span></div>
+      </div>
+
+      <!-- Panel 2 -->
+      <div class="fase-panel hidden" id="panel-2">
+        <div class="panel-hdr">
+          <span class="phase-badge ph2">Transición reproductiva · días 8–14</span>
+          <span class="panel-stat" id="pstat2"></span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Planta</th><th>Total flores</th><th>♀ Femeninas</th><th>♂ Masculinas</th><th>% ♀</th></tr></thead>
+            <tbody id="tbody2"></tbody>
+          </table>
+        </div>
+        <div class="sorted-wrap"><span class="sorted-label">Datos ordenados:</span><span class="sorted-text" id="sorted2"></span></div>
+      </div>
+
+      <!-- Panel 3 -->
+      <div class="fase-panel hidden" id="panel-3">
+        <div class="panel-hdr">
+          <span class="phase-badge ph3">Consolidación reproductiva · días 15–21</span>
+          <span class="panel-stat" id="pstat3"></span>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Planta</th><th>Total flores</th><th>♀ Femeninas</th><th>♂ Masculinas</th><th>% ♀</th></tr></thead>
+            <tbody id="tbody3"></tbody>
+          </table>
+        </div>
+        <div class="sorted-wrap"><span class="sorted-label">Datos ordenados:</span><span class="sorted-text" id="sorted3"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ S3: ESTADÍSTICAS ══════════════════════════ -->
+  <section class="section-card anim-card" id="secStats" style="display:none; --d:2">
+    <h2 class="section-title">📐 Cálculos Estadísticos por Fase</h2>
+    <p class="body-text">Medidas calculadas sobre el total de flores producidas por planta en cada fase, con datos ordenados de menor a mayor.</p>
+    <div id="statsGrid" class="stats-3col"></div>
+  </section>
+
+  <!-- ══ S4: HISTOGRAMAS ═══════════════════════════ -->
+  <section class="section-card anim-card" id="secHist" style="display:none; --d:3">
+    <h2 class="section-title">📊 Histogramas de Frecuencia</h2>
+    <p class="body-text">Distribución de frecuencias del total de flores por planta en cada fase. El eje X representa intervalos de flores; el eje Y, la cantidad de plantas en cada intervalo.</p>
+
+    <div class="charts-3col">
+      <div class="chart-cell">
+        <div class="chart-lbl ph1-lbl">Fase 1 · Inicio</div>
+        <canvas id="hist1" height="240"></canvas>
+      </div>
+      <div class="chart-cell">
+        <div class="chart-lbl ph2-lbl">Fase 2 · Transición</div>
+        <canvas id="hist2" height="240"></canvas>
+      </div>
+      <div class="chart-cell">
+        <div class="chart-lbl ph3-lbl">Fase 3 · Consolidación</div>
+        <canvas id="hist3" height="240"></canvas>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="margin-top:16px">
+      <strong>Lectura del histograma:</strong> Conforme avanza el ciclo, la distribución se desplaza hacia la derecha (mayor producción) 
+      y se vuelve más dispersa, reflejando la mayor variabilidad biológica en la fase reproductiva.
+    </div>
+  </section>
+
+  <!-- ══ S5: BOXPLOT ═══════════════════════════════ -->
+  <section class="section-card anim-card" id="secBoxplot" style="display:none; --d:4">
+    <h2 class="section-title">📦 Diagrama de Caja y Bigotes — Comparativo</h2>
+    <p class="body-text">Las tres fases se representan juntas para comparar medianas, rangos intercuartílicos (RIC) y posibles valores atípicos.</p>
+
+    <div class="bp-wrap">
+      <canvas id="bpCanvas"></canvas>
+    </div>
+
+    <div id="bpLegend" class="bp-legend-grid"></div>
+  </section>
+
+  <!-- ══ S6: CONCLUSIONES ══════════════════════════ -->
+  <section class="section-card anim-card" id="secConc" style="display:none; --d:5">
+    <h2 class="section-title">💡 Conclusiones</h2>
+    <div id="concBody"></div>
+  </section>
+
+</div>
+<script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+<script src="app1.js"></script>
+</body>
+</html>

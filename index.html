@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portafolio — Probabilidad y Estadística</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Animated background -->
+  <div class="bg-wrap">
+    <div class="bg-orb orb1"></div>
+    <div class="bg-orb orb2"></div>
+    <div class="bg-orb orb3"></div>
+    <canvas id="particles"></canvas>
+  </div>
+
+  <main class="container">
+
+    <!-- Header -->
+    <header class="site-header">
+      <div class="badge-row">
+        <span class="badge badge--year">2026</span>
+        <span class="badge badge--course">PyE</span>
+      </div>
+      <h1 class="site-title">
+        <span class="title-word" style="--d:0">Portafolio</span>
+        <span class="title-word" style="--d:1">de</span>
+        <span class="title-word accent" style="--d:2">Tareas</span>
+      </h1>
+      <p class="site-subtitle">Probabilidad y Estadística</p>
+
+      <div class="info-row">
+        <div class="info-pill" style="--d:3">
+          <span class="pill-icon">🎓</span>
+          <div>
+            <div class="pill-label">Estudiante</div>
+            <div class="pill-value">Gonzalez Hernandez Diego</div>
+          </div>
+        </div>
+        <div class="info-pill" style="--d:4">
+          <span class="pill-icon">📚</span>
+          <div>
+            <div class="pill-label">Asignatura</div>
+            <div class="pill-value">Probabilidad y Estadística</div>
+          </div>
+        </div>
+        <div class="info-pill" style="--d:5">
+          <span class="pill-icon">👨‍🏫</span>
+          <div>
+            <div class="pill-label">Profesor</div>
+            <div class="pill-value">Manzanilla Granados Héctor Emanuel</div>
+          </div>
+        </div>
+      </div>
+
+      
+    </header>
+
+    <!-- Cards -->
+    <section class="tasks-grid">
+
+      <article class="task-card" style="--accent:#f6c90e; --d:7">
+        <div class="card-glow"></div>
+        <div class="card-inner">
+          <div class="card-top">
+            <div class="card-num">01</div>
+            <div class="card-icon">Tarea 1</div>
+          </div>
+          <h2 class="card-title">Histograma</h2>
+          <p class="card-desc">Análisis estadístico del problema de la calabaza: histograma, boxplot, media, mediana y cuartiles.</p>
+          <div class="card-tags">
+            <span>Histograma</span><span>Boxplot</span><span>Cuartiles</span>
+          </div>
+          <a href="tareas/tarea1/tarea1.html" class="card-btn">
+            <span>Ver tarea</span>
+            <span class="btn-arrow">→</span>
+          </a>
+        </div>
+        
+      </article>
+
+      <article class="task-card" style="--accent:#58cc02; --d:8">
+        <div class="card-glow"></div>
+        <div class="card-inner">
+          <div class="card-top">
+            <div class="card-num">02</div>
+            <div class="card-icon">Tarea 2</div>
+          </div>
+          <h2 class="card-title">Problema 66</h2>
+          <p class="card-desc">Probabilidad condicional con vacacionistas usando diagramas de Venn y método propio.</p>
+          <div class="card-tags">
+            <span>P. Condicional</span><span>Venn</span><span>Intersecciones</span>
+          </div>
+          <a href="tareas/tarea2/tarea2.html" class="card-btn">
+            <span>Ver tarea</span>
+            <span class="btn-arrow">→</span>
+          </a>
+        </div>
+        
+      </article>
+
+      <article class="task-card" style="--accent:#ff4b4b; --d:9">
+        <div class="card-glow"></div>
+        <div class="card-inner">
+          <div class="card-top">
+            <div class="card-num">03</div>
+            <div class="card-icon">Tarea 3</div>
+          </div>
+          <h2 class="card-title">Distribuciones</h2>
+          <p class="card-desc">Las 5 distribuciones de probabilidad con gráfica interactiva y ejemplo para cada una.</p>
+          <div class="card-tags">
+            <span>Binomial</span><span>Poisson</span><span>Geométrica</span>
+          </div>
+          <a href="tareas/tarea3/tarea3.html" class="card-btn">
+            <span>Ver tarea</span>
+            <span class="btn-arrow">→</span>
+          </a>
+        </div>
+      </article>
+
+      <article class="task-card" style="--accent:#ce82ff; --d:10">
+        <div class="card-glow"></div>
+        <div class="card-inner">
+          <div class="card-top">
+            <div class="card-num">04</div>
+            <div class="card-icon">Tarea 4</div>
+          </div>
+          <h2 class="card-title">Covarianza</h2>
+          <p class="card-desc">Ejercicios 25 y 27: área esperada de un rectángulo y tiempo de espera con variables continuas.</p>
+          <div class="card-tags">
+            <span>Covarianza</span><span>E(XY)</span><span>Uniforme</span>
+          </div>
+          <a href="tareas/tarea4/tarea4.html" class="card-btn">
+            <span>Ver tarea</span>
+            <span class="btn-arrow">→</span>
+          </a>
+        </div>
+        
+      </article>
+
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-hearts">
+        <span class="heart">❤️</span><span class="heart">❤️</span><span class="heart">❤️</span><span class="heart">❤️</span><span class="heart">❤️</span>
+      </div>
+      <p>Probabilidad y Estadística · Gonzalez Hernandez Diego · 2026</p>
+    </footer>
+  </main>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

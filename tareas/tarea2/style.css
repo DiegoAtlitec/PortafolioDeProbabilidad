@@ -1,0 +1,109 @@
+/* ── Tarea 2: Vacacionistas Conectados ── */
+
+.event-list {
+  list-style: none;
+  margin: 12px 0 20px 0;
+  padding: 0;
+}
+.event-list li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 8px;
+}
+.event-list li::before {
+  content: '👉';
+  position: absolute;
+  left: 0;
+  top: 1px;
+  font-size: 0.9rem;
+}
+
+/* Venn Diagram Styles */
+.venn-wrapper {
+  background: var(--bg3);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+.venn-svg {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+.venn-label {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 900;
+  font-size: 16px;
+  text-anchor: middle;
+}
+.venn-val {
+  font-family: 'Space Mono', monospace;
+  fill: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+.center-val {
+  font-size: 16px;
+  font-weight: 900;
+  fill: var(--text);
+  text-shadow: 0 0 8px rgba(0,0,0,0.8);
+}
+
+/* Tabs Header Layout */
+.tabs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1.5px solid var(--border);
+}
+
+/* Math Blocks */
+.math-block {
+  background: rgba(255,255,255,0.02);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  margin-bottom: 16px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.math-block:hover {
+  border-color: rgba(255,255,255,0.15);
+  transform: translateX(4px);
+}
+.math-label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-soft);
+  margin-bottom: 10px;
+}
+
+/* Override result highlight color dynamically */
+.result-highlight {
+  background: rgba(255,255,255,0.05);
+  color: var(--c, var(--duo-green));
+  border-color: var(--c, var(--duo-green));
+}
+
+/* Reusing your tabs logic */
+.fase-tabs { display:flex; gap:6px; flex-wrap:wrap; }
+.fase-tab {
+  background:rgba(255,255,255,.04); border:1.5px solid rgba(255,255,255,.07);
+  color:rgba(255,255,255,.4); font-family:'Nunito',sans-serif;
+  font-size:.82rem; font-weight:800; padding:8px 18px;
+  border-radius:999px; cursor:pointer; transition:all .2s;
+}
+.fase-tab.active { background:rgba(206, 130, 255, 0.1); border-color:var(--duo-purple); color:var(--duo-purple); }
+.fase-tab:hover:not(.active) { border-color:rgba(255,255,255,.18); color:rgba(255,255,255,.65); }
+.hidden { display: none !important; }

@@ -1,0 +1,218 @@
+/* ── Shared styles for all tarea pages ── */
+:root {
+  --bg: #111217;
+  --bg2: #17191f;
+  --bg3: #1e2028;
+  --border: rgba(255,255,255,0.07);
+  --text: #ffffff;
+  --text-soft: rgba(255,255,255,0.6);
+  --text-muted: rgba(255,255,255,0.3);
+  --duo-green: #58cc02;
+  --duo-yellow: #f6c90e;
+  --duo-red: #ff4b4b;
+  --duo-blue: #1cb0f6;
+  --duo-purple: #ce82ff;
+  --radius: 20px;
+  --radius-sm: 12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+.page-container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 24px 60px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-soft);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.88rem;
+  margin-bottom: 32px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--bg3);
+  border: 1.5px solid var(--border);
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+}
+.back-link:hover {
+  color: var(--text);
+  border-color: rgba(255,255,255,0.2);
+  transform: translateX(-3px);
+}
+
+.page-header {
+  margin-bottom: 40px;
+  animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+.page-badge {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 2px solid var(--accent, var(--duo-green));
+  color: var(--accent, var(--duo-green));
+  background: rgba(255,255,255,0.04);
+  margin-bottom: 14px;
+}
+.page-title {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+.page-subtitle {
+  font-size: 1rem;
+  color: var(--text-soft);
+  font-weight: 600;
+}
+
+.section-card {
+  background: var(--bg2);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  margin-bottom: 20px;
+  animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+  transition: border-color 0.3s;
+}
+.section-card:hover { border-color: rgba(255,255,255,0.15); }
+
+.section-title {
+  font-size: 1.05rem;
+  font-weight: 900;
+  margin-bottom: 16px;
+  color: var(--accent, var(--duo-green));
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 18px;
+  background: var(--accent, var(--duo-green));
+  border-radius: 4px;
+}
+
+.formula-box {
+  background: var(--bg3);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9rem;
+  color: var(--duo-yellow);
+  border: 1.5px solid rgba(246,201,14,0.15);
+  margin: 12px 0;
+  overflow-x: auto;
+}
+
+.result-highlight {
+  display: inline-block;
+  background: rgba(88,204,2,0.12);
+  color: var(--duo-green);
+  border: 2px solid var(--duo-green);
+  border-radius: var(--radius-sm);
+  padding: 10px 20px;
+  font-weight: 900;
+  font-size: 1rem;
+  margin-top: 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+th {
+  background: var(--bg3);
+  color: var(--text-soft);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 12px 14px;
+  text-align: left;
+}
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+  color: var(--text-soft);
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: rgba(255,255,255,0.02); color: var(--text); }
+
+@keyframes popIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+
+/* ── Efecto de Fondo: Orbes Difuminados ── */
+.bg-wrap {
+  position: fixed;
+  inset: 0;
+  pointer-events: none; /* Para que no interfieran al dar clic */
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px); /* Aquí está la magia del difuminado */
+  opacity: 0.15; /* Sutil para no opacar el texto */
+  animation: orbFloat 12s ease-in-out infinite;
+}
+
+.orb1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, var(--duo-green), transparent 70%);
+  top: -200px; left: -200px;
+  animation-delay: 0s;
+}
+
+.orb2 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, var(--duo-purple), transparent 70%);
+  bottom: -150px; right: -150px;
+  animation-delay: -4s;
+}
+
+.orb3 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, var(--duo-yellow), transparent 70%);
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: -8s;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -40px) scale(1.05); }
+  66% { transform: translate(-20px, 30px) scale(0.97); }
+}
+
+/* ⚠️ IMPORTANTE: Asegurar que el contenido vaya por encima */
+.page-container {
+  position: relative;
+  z-index: 1; 
+  /* ... tus otros estilos de page-container se quedan igual ... */
+}

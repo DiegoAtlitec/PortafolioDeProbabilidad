@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tarea 4 — Covarianza Aplicada</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared.css"/>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="page-container">
+
+  <a href="../../index.html" class="back-link">← Volver al portafolio</a>
+
+  <header class="page-header">
+    <div class="page-badge" style="--accent: var(--duo-purple)">Tarea 04 · Variables Múltiples</div>
+    <h1 class="page-title">Problemas de<br><span style="color:var(--duo-purple)">Covarianza</span></h1>
+    <p class="page-subtitle">Cálculo de esperanza conjunta y varianza en sistemas tecnológicos.</p>
+  </header>
+
+  <section class="section-card anim-card" style="--d:0">
+    <h2 class="section-title" style="--accent: var(--duo-green)">🧠 Problema 1 — Pipeline de Machine Learning</h2>
+
+    <div class="problem-box">
+      <p>En el entrenamiento de una red neuronal, el tiempo de procesamiento en milisegundos se divide en dos variables aleatorias continuas:</p>
+      <ul style="margin:10px 0 10px 20px; color:var(--text-soft)">
+        <li>$X$ = Tiempo de preparación de tensores en CPU.</li>
+        <li>$Y$ = Tiempo de transferencia y cálculo en GPU.</li>
+      </ul>
+      <p>Ambas variables tienen una función de densidad de probabilidad conjunta dada por:</p>
+      <div class="formula-box">$$f(x,y) = x + y \quad \text{para } 0 \le x \le 1, \ 0 \le y \le 1$$</div>
+      <p style="margin-top:10px"><strong>Se pide:</strong> Calcular la covarianza $Cov(X,Y)$ para determinar si existe una relación lineal entre los tiempos de CPU y GPU.</p>
+    </div>
+
+    <div class="steps-container" id="steps-p1">
+      <div class="step hidden-step">
+        <div class="step-num" style="--c: var(--duo-green)">1</div>
+        <div class="step-content">
+          <h4>Esperanza de X e Y</h4>
+          <p>Primero, calculamos $E[X]$. Por simetría de la función conjunta, $E[Y]$ será igual.</p>
+          <div class="math-block">
+            $$E[X] = \int_0^1 \int_0^1 x(x + y) \, dy \, dx$$
+            $$E[X] = \int_0^1 \left[ x^2y + x\frac{y^2}{2} \right]_0^1 dx$$
+            $$E[X] = \int_0^1 \left( x^2 + \frac{x}{2} \right) dx = \left[ \frac{x^3}{3} + \frac{x^2}{4} \right]_0^1 = \frac{7}{12}$$
+          </div>
+        </div>
+      </div>
+
+      <div class="step hidden-step">
+        <div class="step-num" style="--c: var(--duo-green)">2</div>
+        <div class="step-content">
+          <h4>Esperanza del producto E[XY]</h4>
+          <p>Calculamos el valor esperado conjunto:</p>
+          <div class="math-block">
+            $$E[XY] = \int_0^1 \int_0^1 xy(x + y) \, dy \, dx$$
+            $$E[XY] = \int_0^1 \int_0^1 (x^2y + xy^2) \, dy \, dx = \frac{1}{3}$$
+          </div>
+        </div>
+      </div>
+
+      <div class="step hidden-step">
+        <div class="step-num" style="--c: var(--duo-green)">3</div>
+        <div class="step-content">
+          <h4>Fórmula de la Covarianza</h4>
+          <p>Aplicamos el teorema: $Cov(X,Y) = E[XY] - E[X]E[Y]$</p>
+          <div class="math-block">
+            $$Cov(X,Y) = \frac{1}{3} - \left(\frac{7}{12}\right)\left(\frac{7}{12}\right)$$
+            $$Cov(X,Y) = \frac{48}{144} - \frac{49}{144} = -\frac{1}{144}$$
+          </div>
+        </div>
+      </div>
+
+      <button class="reveal-btn" onclick="revelarPaso('steps-p1', this)">Revelar siguiente paso 👀</button>
+    </div>
+
+    <div class="result-box hidden-result" id="res-p1">
+      <div class="result-label" style="color: var(--duo-green)">Resultado Problema 1</div>
+      <div class="result-value">$$Cov(X,Y) = -0.0069$$</div>
+      <div class="interpretation-box" style="--c: var(--duo-green)">
+        <strong>💡 Interpretación:</strong> Existe una covarianza negativa muy ligera. Esto indica que cuando el tiempo de la CPU es ligeramente más alto, la GPU tiende a procesar marginalmente más rápido, compensando microscópicamente el tiempo total del pipeline.
+      </div>
+    </div>
+  </section>
+
+  <section class="section-card anim-card" style="--d:1">
+    <h2 class="section-title" style="--accent: var(--duo-blue)">☁️ Problema 2 — Latencia en Azure</h2>
+
+    <div class="problem-box">
+      <p>Una aplicación alojada en Microsoft Azure tiene un tiempo de respuesta total $T$ que es la suma del tiempo de cómputo en la Máquina Virtual ($X$) y el tiempo de consulta en la base de datos SQL ($Y$). Entonces, $T = X + Y$.</p>
+      <ul style="margin:10px 0 10px 20px; color:var(--text-soft)">
+        <li>Varianza del servidor: $Var(X) = 4 \text{ ms}^2$</li>
+        <li>Varianza de la BD: $Var(Y) = 9 \text{ ms}^2$</li>
+        <li>Covarianza bajo estrés: $Cov(X,Y) = 3 \text{ ms}^2$</li>
+      </ul>
+      <p style="margin-top:10px"><strong>Se pide:</strong> Calcular la varianza total del sistema $Var(T)$ para configurar las alertas del monitor de rendimiento.</p>
+    </div>
+
+    <div class="steps-container" id="steps-p2">
+      <div class="step hidden-step">
+        <div class="step-num" style="--c: var(--duo-blue)">1</div>
+        <div class="step-content">
+          <h4>Varianza de una suma de variables</h4>
+          <p>Dado que $X$ e $Y$ <strong>no son independientes</strong> (su covarianza no es cero), usamos la fórmula general de la varianza para combinaciones lineales:</p>
+          <div class="math-block">
+            $$Var(X + Y) = Var(X) + Var(Y) + 2Cov(X,Y)$$
+          </div>
+        </div>
+      </div>
+
+      <div class="step hidden-step">
+        <div class="step-num" style="--c: var(--duo-blue)">2</div>
+        <div class="step-content">
+          <h4>Sustitución de valores</h4>
+          <p>Insertamos las métricas conocidas del sistema:</p>
+          <div class="math-block">
+            $$Var(T) = 4 + 9 + 2(3)$$
+            $$Var(T) = 13 + 6 = 19$$
+          </div>
+        </div>
+      </div>
+
+      <button class="reveal-btn" onclick="revelarPaso('steps-p2', this)">Revelar siguiente paso 👀</button>
+    </div>
+
+    <div class="result-box hidden-result" id="res-p2">
+      <div class="result-label" style="color: var(--duo-blue)">Resultado Problema 2</div>
+      <div class="result-value">$$Var(T) = 19 \text{ ms}^2$$</div>
+      <div class="interpretation-box" style="--c: var(--duo-blue)">
+        <strong>💡 Interpretación:</strong> Si las variables fueran independientes, la varianza total sería solo 13 ms². Sin embargo, como el tráfico alto satura simultáneamente la VM y la base de datos (covarianza positiva), la inestabilidad total de la latencia sube hasta 19 ms².
+      </div>
+    </div>
+  </section>
+
+</div>
+<script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+<script src="app4.js">
+  
+</script>
+</body>
+</html>

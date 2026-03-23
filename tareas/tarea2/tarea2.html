@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tarea 2 — Vacacionistas Conectados</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../shared.css"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<div class="page-container">
+
+  <a href="../../index.html" class="back-link">← Volver al portafolio</a>
+
+  <header class="page-header">
+    <div class="page-badge" style="--accent: var(--duo-blue)">Tarea 02 · Diagramas de Venn y Probabilidad</div>
+    <h1 class="page-title">✈️ Vacacionistas Conectados</h1>
+    <p class="page-subtitle">Análisis de la palabra "también": Intersección vs. Probabilidad Condicional</p>
+  </header>
+
+  <section class="section-card anim-card" style="--d:0">
+    <h2 class="section-title" style="--accent: var(--duo-blue)">📋 Planteamiento y Diagrama de Venn</h2>
+
+    <p class="body-text">
+      Basado en la encuesta de Travelocity sobre vacacionistas, definimos los siguientes eventos:
+    </p>
+    <ul class="body-text event-list">
+      <li><strong>W:</strong> Revisa correo del trabajo (40% = 0.40)</li>
+      <li><strong>C:</strong> Usa celular para contacto (30% = 0.30)</li>
+      <li><strong>L:</strong> Trae computadora portátil (25% = 0.25)</li>
+    </ul>
+
+    <div class="highlight-box" style="border-color: var(--duo-blue); background: rgba(28,176,246,0.07);">
+      <strong>Datos clave extraídos de las premisas:</strong><br>
+      • Intersección P(W &cap; C) = 0.23<br>
+      • Ninguno P(W &cup; C &cup; L)<sup>c</sup> = 0.51 &rarr; La unión total es 0.49.<br>
+      • "88 de 100 con laptop revisan correo" &rarr; P(W|L) = 0.88 &rarr; P(W &cap; L) = 0.22<br>
+      • "70 de 100 con celular traen laptop" &rarr; P(L|C) = 0.70 &rarr; P(L &cap; C) = 0.21<br>
+      • <em>Despejando la intersección central:</em> P(W &cap; C &cap; L) = 0.20
+    </div>
+
+    <div class="venn-wrapper">
+      <svg viewBox="0 0 400 320" class="venn-svg">
+        <circle cx="150" cy="120" r="100" fill="rgba(88,204,2,0.15)" stroke="var(--duo-green)" stroke-width="2.5"/>
+        <circle cx="250" cy="120" r="100" fill="rgba(246,201,14,0.15)" stroke="var(--duo-yellow)" stroke-width="2.5"/>
+        <circle cx="200" cy="210" r="100" fill="rgba(28,176,246,0.15)" stroke="var(--duo-blue)" stroke-width="2.5"/>
+        
+        <text x="80" y="50" class="venn-label" fill="var(--duo-green)">W (Correo)</text>
+        <text x="260" y="50" class="venn-label" fill="var(--duo-yellow)">C (Celular)</text>
+        <text x="160" y="310" class="venn-label" fill="var(--duo-blue)">L (Laptop)</text>
+        
+        <text x="100" y="110" class="venn-val">0.15</text>     <text x="290" y="110" class="venn-val">0.06</text>     <text x="200" y="260" class="venn-val">0.02</text>     <text x="200" y="95" class="venn-val">0.03</text>      <text x="140" y="180" class="venn-val">0.02</text>     <text x="260" y="180" class="venn-val">0.01</text>     <text x="200" y="150" class="venn-val center-val">0.20</text> <text x="30" y="290" class="venn-val">Afuera: 0.51</text>
+      </svg>
+    </div>
+  </section>
+
+  <section class="section-card anim-card" style="--d:1">
+    <div class="tabs-header">
+      <h2 class="section-title" style="margin:0; --accent: var(--duo-purple)">🧠 Resolución</h2>
+      <div class="fase-tabs" style="margin:0;">
+        <button class="fase-tab active" data-tab="inter">🔗 Intersección (Y)</button>
+        <button class="fase-tab" data-tab="cond">🎯 Prob. Condicional</button>
+      </div>
+    </div>
+
+    <div class="fase-panel" id="panel-inter">
+      <p class="body-text" style="margin-bottom: 20px;">
+        Interpretando la palabra "también" en las preguntas como una <strong>inclusión lógica (Y)</strong>, es decir, buscando la probabilidad de que ocurran ambos eventos simultáneamente sobre el universo total.
+      </p>
+
+      <div class="math-block">
+        <div class="math-label">Pregunta A: Correo (W) y Celular (C)</div>
+        <div class="formula-box">P(W &cap; C) = 0.23</div>
+        <div class="result-highlight" style="--c: var(--duo-yellow)">Resultado: 23.00%</div>
+      </div>
+
+      <div class="math-block">
+        <div class="math-label">Pregunta B: Laptop (L) y Celular (C)</div>
+        <div class="formula-box">P(L &cap; C) = 0.21</div>
+        <div class="result-highlight" style="--c: var(--duo-yellow)">Resultado: 21.00%</div>
+      </div>
+
+      <div class="math-block">
+        <div class="math-label">Pregunta C: Correo (W) y Laptop (L) y Celular (C)</div>
+        <div class="formula-box">P(W &cap; L &cap; C) = 0.20</div>
+        <div class="result-highlight" style="--c: var(--duo-yellow)">Resultado: 20.00%</div>
+      </div>
+    </div>
+
+    <div class="fase-panel hidden" id="panel-cond">
+      <p class="body-text" style="margin-bottom: 20px;">
+        Interpretando la palabra "también" como un indicador de <strong>probabilidad condicional</strong>, reduciendo nuestro espacio muestral únicamente a quienes ya cumplen la primera condición.
+      </p>
+
+      <div class="math-block">
+        <div class="math-label">Pregunta A: Celular dado que revisa Correo</div>
+        <div class="formula-box">P(C | W) = P(W &cap; C) / P(W) = 0.23 / 0.40</div>
+        <div class="result-highlight" style="--c: var(--duo-green)">Resultado: 57.50%</div>
+      </div>
+
+      <div class="math-block">
+        <div class="math-label">Pregunta B: Celular dado que trae Laptop</div>
+        <div class="formula-box">P(C | L) = P(L &cap; C) / P(L) = 0.21 / 0.25</div>
+        <div class="result-highlight" style="--c: var(--duo-green)">Resultado: 84.00%</div>
+      </div>
+
+      <div class="math-block">
+        <div class="math-label">Pregunta C: Celular dado que revisa Correo y trae Laptop</div>
+        <div class="formula-box">P(C | W &cap; L) = P(W &cap; L &cap; C) / P(W &cap; L) = 0.20 / 0.22</div>
+        <div class="result-highlight" style="--c: var(--duo-green)">Resultado: 90.91%</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+<script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
+<script src="app2.js"></script>
+</body>
+</html>

@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ── ALMACÉN DE GRÁFICAS ──
-  const charts = { binom: null, nbinom: null, geom: null, poisson: null, exp: null };
+  const charts = { binom: null, nbinom: null, geom: null, poisson: null, exp: null, normal: null };
 
   // ── CONFIGURACIÓN COMÚN CHART.JS ──
   const chartOptions = {
@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('val-nbinom-p').textContent = p.toFixed(2);
 
     let labels = [], data = [];
-    // Calculamos hasta un k razonable para visualizar (ej. hasta que la prob decaiga)
     const maxK = r + Math.floor((r * (1 - p)) / p) + 15; 
     for (let k = r; k <= maxK; k++) {
       labels.push(k);
@@ -125,10 +124,27 @@ document.addEventListener('DOMContentLoaded', () => {
     updateChart('exp', 'line', labels, data, '#f6c90e');
   }
 
+  function drawNormal() {
+    const mu = parseFloat(document.getElementById('normal-mu').value);
+    const sigma = parseFloat(document.getElementById('normal-sigma').value);
+    document.getElementById('val-normal-mu').textContent = mu.toFixed(1);
+    document.getElementById('val-normal-sigma').textContent = sigma.toFixed(1);
+
+    let labels = [], data = [];
+    // Mantener un rango de x estático (-15 a 15) ayuda a visualizar el desplazamiento.
+    for (let x = -15; x <= 15; x += 0.5) {
+      labels.push(x.toFixed(1));
+      let exponent = -0.5 * Math.pow((x - mu) / sigma, 2);
+      let fx = (1 / (sigma * Math.sqrt(2 * Math.PI))) * Math.exp(exponent);
+      data.push(fx);
+    }
+    updateChart('normal', 'line', labels, data, '#ff4477');
+  }
+
   // ── INICIALIZAR Y GESTIONAR TABS ──
   const drawFunctions = {
     'binom': drawBinomial, 'nbinom': drawNegBinomial, 
-    'geom': drawGeometric, 'poisson': drawPoisson, 'exp': drawExponential
+    'geom': drawGeometric, 'poisson': drawPoisson, 'exp': drawExponential, 'normal': drawNormal
   };
 
   const tabs = document.querySelectorAll('.dist-tab');
@@ -143,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const targetId = tab.getAttribute('data-dist');
       document.getElementById(`panel-${targetId}`).classList.remove('hidden');
       
-      // Dibujar gráfica de la pestaña activa (evita canvas con width 0)
       drawFunctions[targetId]();
     });
   });
@@ -156,6 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('geom-p').addEventListener('input', drawGeometric);
   document.getElementById('poisson-lam').addEventListener('input', drawPoisson);
   document.getElementById('exp-lam').addEventListener('input', drawExponential);
+  document.getElementById('normal-mu').addEventListener('input', drawNormal);
+  document.getElementById('normal-sigma').addEventListener('input', drawNormal);
 
   // Inicializar la primera pestaña
   drawBinomial();
